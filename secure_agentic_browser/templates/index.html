@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Security Scanner</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>AI Website Security Scanner</h1>
+
+    <form method="POST">
+        <input type="text" name="url" placeholder="Enter Website URL" required>
+        <button type="submit">Scan Website</button>
+    </form>
+
+    {% if result %}
+    <div class="card">
+        <h2>Security Report</h2>
+        <p><strong>Risk Score:</strong> {{ result.score }}</p>
+
+        <p class="
+        {% if result.decision == 'ALLOW' %}green
+        {% elif result.decision == 'CONFIRM' %}orange
+        {% else %}red{% endif %}
+        ">
+        Decision: {{ result.decision }}
+        </p>
+
+        <h3>Reasons:</h3>
+        <ul>
+            {% for r in result.reasons %}
+            <li>{{ r }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
